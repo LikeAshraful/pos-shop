@@ -237,6 +237,8 @@ return [
         */
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
+        'Str'      => 'Illuminate\Support\Str',
+
 
 
     ],

@@ -64,9 +64,16 @@
                                                 <td>{{ $list->name }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($list->created_at)->diffForHumans() }}</td>
 
-                                                <td><span class="tag tag-success">{{ $list->user_role }}</span></td>
                                                 <td>
-                                                    <a href="{{route('logged_in.user.profile.view')}}"><i class="fas fa-eye"></i></a>
+                                                    @if($list->role_id == 1)
+                                                        <span class="badge-success badge">Admin User</span>
+                                                    @else
+                                                        <span class="badge-warning badge">General User</span>
+                                                    @endif
+
+                                                </td>
+                                                <td>
+
 
                                                     <a href="#deleteModal{{ $list->id }}" data-toggle="modal" class="badge badge-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>

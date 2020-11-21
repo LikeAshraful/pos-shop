@@ -53,7 +53,7 @@
 
                                                 <td>
 
-                                                    <a href="{{ route('admin.supplier.edit', $list->id ) }}" class="badge badge-info">
+                                                    <a href="{{ route('admin.customers.edit', $list->id ) }}" class="badge badge-info">
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </a>
 
@@ -68,8 +68,8 @@
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Are
-                                                                        sure to delete?</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Are sure to delete?</h5>
+
                                                                     <button type="button" class="close"
                                                                             data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -77,7 +77,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form
-                                                                        action="{!! route('admin.supplier.delete', $list->id) !!}"
+                                                                        action="{!! route('admin.customers.delete', $list->id) !!}"
                                                                         method="post">
                                                                         {{ csrf_field() }}
                                                                         <button type="submit" class="btn btn-danger">

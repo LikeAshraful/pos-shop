@@ -69,12 +69,56 @@ Route::group(['prefix' => 'brand'], function () {
 
 });
 
+
+
+Route::group(['prefix' => 'units'], function () {
+    Route::get('/view', 'Backend\UnitsController@getIndex')->name('admin.units.view');
+    Route::get('/create', 'Backend\UnitsController@getCreate')->name('admin.units.create');
+    Route::post('/store', 'Backend\UnitsController@postStore')->name('admin.units.store');
+    Route::get('/edit/{id}', 'Backend\UnitsController@getEdit')->name('admin.units.edit');
+    Route::post('/update/{id}', 'Backend\UnitsController@postUpdate')->name('admin.units.update');
+    Route::post('/delete/{id}', 'Backend\UnitsController@postDelete')->name('admin.units.delete');
+
+});
+
+Route::group(['prefix' => 'products'], function () {
+    Route::get('/index', 'Backend\ProductsController@getIndex')->name('admin.products.view');
+    Route::get('/create', 'Backend\ProductsController@getCreate')->name('admin.products.create');
+    Route::post('/store', 'Backend\ProductsController@postStore')->name('admin.products.store');
+    Route::get('/edit/{id}', 'Backend\ProductsController@getEdit')->name('admin.products.edit');
+    Route::post('/update/{id}', 'Backend\ProductsController@postUpdate')->name('admin.products.update');
+    Route::post('/delete/{id}', 'Backend\ProductsController@postDelete')->name('admin.products.delete');
+
+});
+
 Route::group(['prefix' => 'category'], function () {
     Route::get('/view', 'Backend\CategoryController@getIndex')->name('admin.category.view');
     Route::get('/create', 'Backend\CategoryController@getCreate')->name('admin.category.create');
-    Route::post('/store', 'Backend\CategoryController@store')->name('admin.category.store');
+    Route::post('/store', 'Backend\CategoryController@postStore')->name('admin.category.store');
     Route::get('/edit/{id}', 'Backend\CategoryController@getEdit')->name('admin.category.edit');
     Route::post('/update/{id}', 'Backend\CategoryController@postUpdate')->name('admin.category.update');
     Route::post('/delete/{id}', 'Backend\CategoryController@postDelete')->name('admin.category.delete');
 
 });
+
+Route::group(['prefix' => 'sub-category'], function () {
+    Route::get('/index', 'Backend\SubCategoryController@getIndex')->name('admin.sub_category.view');
+    Route::get('/create', 'Backend\SubCategoryController@getCreate')->name('admin.sub_category.create');
+    Route::post('/store', 'Backend\SubCategoryController@postStore')->name('admin.sub_category.store');
+    Route::get('/edit/{id}', 'Backend\SubCategoryController@getEdit')->name('admin.sub_category.edit');
+    Route::post('/update/{id}', 'Backend\SubCategoryController@postUpdate')->name('admin.sub_category.update');
+    Route::post('/delete/{id}', 'Backend\SubCategoryController@postDelete')->name('admin.sub_category.delete');
+
+});
+
+Route::group(['prefix' => 'purchase'], function () {
+    Route::get('/index', 'Backend\PurchaseController@getIndex')->name('admin.purchase.view');
+    Route::get('/create', 'Backend\PurchaseController@getCreate')->name('admin.purchase.create');
+    Route::post('/store', 'Backend\PurchaseController@postStore')->name('admin.purchase.store');
+    Route::get('/edit/{id}', 'Backend\PurchaseController@getEdit')->name('admin.purchase.edit');
+    Route::post('/update/{id}', 'Backend\PurchaseController@postUpdate')->name('admin.purchase.update');
+    Route::post('/delete/{id}', 'Backend\PurchaseController@postDelete')->name('admin.purchase.delete');
+
+});
+
+

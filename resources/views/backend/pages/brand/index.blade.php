@@ -67,7 +67,7 @@
 
                                                 <td>
 
-                                                    @if($list->is_active =="active")
+                                                    @if($list->status =="active")
                                                         <span class="badge badge-success">Active</span>
                                                     @else
                                                         <span class="badge badge-warning">Inactive</span>
@@ -99,7 +99,7 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form
-                                                                        action="{!! route('logged_in.user.delete', $list->id) !!}"
+                                                                        action="{!! route('admin.brand.delete', $list->id) !!}"
                                                                         method="post">
                                                                         {{ csrf_field() }}
                                                                         <button type="submit" class="btn btn-danger">

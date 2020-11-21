@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <label for="name">@lang('form.name')<span class="text-danger">*</span></label>
 
-                                    <input type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}" name="name" id="name" placeholder="Enter supplier name"/>
+                                    <input type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}" name="name" id="name" placeholder="Enter brand name"/>
 
                                     @if ($errors->has('name'))
                                         <div class="error">
@@ -30,21 +30,22 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="code">@lang('form.code')<span class="text-danger">*</span></label>
+{{--                                <div class="form-group">--}}
+{{--                                    <label for="code">@lang('form.code')<span class="text-danger">*</span></label>--}}
 
-                                    <input class="form-control" name="code" placeholder="Enter brand code"/>
+{{--                                    <input class="form-control" name="code" placeholder="Enter brand code"/>--}}
 
-                                    {!! $errors->first('code', '<label class="help-block text-danger">:message</label>') !!}
-                                </div>
+{{--                                    {!! $errors->first('code', '<label class="help-block text-danger">:message</label>') !!}--}}
+{{--                                </div>--}}
                                 <div class="form-group">
-                                    <label>@lang('form.body')</label>
+                                    <label>@lang('form.description')</label>
                                     <textarea name="description" class="form-control" rows="3" placeholder="Enter short desc...."></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="is_active">Status</label>
-                                    <select class="form-control" name="is_active">
+                                    <select class="form-control" name="status">
+                                        <option>Select Option</option>
                                         <option value="active">Active</option>
                                         <option value="inactive">Inactive</option>
                                     </select>
@@ -58,6 +59,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">@lang('form.btn_save')</button>
+                                <a href="{{ route('admin.brand.view') }}" class="btn btn-danger"><i class="fas fa-undo"></i></a>
                             </div>
                             {!! Form::close() !!}
                         </div>

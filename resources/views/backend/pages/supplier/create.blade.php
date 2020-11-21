@@ -42,11 +42,21 @@
                                     <input class="form-control" name="address" placeholder="Enter supplier address"/>
                                     {!! $errors->first('address', '<label class="help-block text-danger">:message</label>') !!}
                                 </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select class="form-control" id="status" name="status">
+                                        <option>Select status</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+
+                                    </select>
+                                </div>
 
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">@lang('form.btn_save')</button>
+                                <a href="{{ route('admin.suppliers.view') }}" class="btn btn-danger"><i class="fas fa-undo"></i></a>
                             </div>
                             {!! Form::close() !!}
                         </div>

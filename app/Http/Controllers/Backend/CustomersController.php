@@ -61,7 +61,6 @@ class CustomersController extends Controller
             ]
         );
 
-
         $customer               = new  Customer();
         $customer->name         = $request->name;
         $customer->email        = $request->email;
@@ -69,8 +68,6 @@ class CustomersController extends Controller
         $customer->address      = $request->address;
         $customer->created_by   = Auth::user()->id;
         $customer->save();
-
-
         toast('Data added successfully !!','success');
         return redirect()->route('admin.customers.view');
 
@@ -105,7 +102,25 @@ class CustomersController extends Controller
      */
     public function postUpdate(Request $request, $id)
     {
-        //
+        //dd($request);
+        $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required',
+                'mobile_no' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+                'address' => 'required',
+            ]
+        );
+
+
+        $customer = Customer::find($id);
+        $customer->name = $request->name;
+        $customer->email = $request->email;
+        $customer->mobile_no = $request->mobile_no;
+        $customer->address = $request->address;
+        $customer->updated_by   = Auth::user()->id;
+        $customer->save();
+        toast('Data has been updated successfully !!','success');
+        return redirect()->route('admin.customers.view');
     }
 
     /**
@@ -116,6 +131,12 @@ class CustomersController extends Controller
      */
     public function postDelete($id)
     {
-        //
+        $delete_row = Customer::find($id);
+        //dd($delete_row);
+        if (!is_null($delete_row)) {
+            $delete_row->delete();
+        }
+        toast('Data deleted successfully !!','success');
+        return back();
     }
 }

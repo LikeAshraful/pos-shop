@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\UploadTrait;
 use App\Models\Brand;
-use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Validator;
 
 
 class BrandsController extends Controller
 {
-    use UploadTrait;
+
 
     public function __construct()
     {
@@ -44,15 +43,14 @@ class BrandsController extends Controller
         //return $request->all();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|max:10|unique:brands',
+            'name' => 'required|string|max:100|unique:brands',
         ]);
 
         $brand = new Brand();
         $brand->name = $request->name;
-        $brand->code = $request->code;
+        $brand->code = Str::slug($request->name);
         $brand->description = $request->description;
-        $brand->is_active = $request->is_active;
+        $brand->status = $request->status;
         $brand->created_by = Auth::user()->id;
         $brand->save();
 
@@ -64,7 +62,7 @@ class BrandsController extends Controller
 
     public function postDelete($id)
     {
-        $delete_row = User::find($id);
+        $delete_row = Brand::find($id);
         //dd($delete_row);
         if (!is_null($delete_row)) {
             $delete_row->delete();
@@ -100,7 +98,7 @@ class BrandsController extends Controller
         $brand = Brand::find($id);
         $brand->name = $request->name;
         $brand->code = $request->code;
-        $brand->is_active = $request->is_active;
+        $brand->status = $request->status;
         $brand->updated_by = Auth::user()->id;
         $brand->save();
         //dd($brand);

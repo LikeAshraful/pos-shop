@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Http\Requests\Backend\UserStoreRequest;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 
 class UsersController extends Controller
@@ -28,6 +29,7 @@ class UsersController extends Controller
     {
         $data['title'] = "User";
         $data['all_user'] = User::all();
+
         //dd($data);
         return view('backend.pages.user.index',$data);
     }

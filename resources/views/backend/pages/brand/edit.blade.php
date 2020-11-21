@@ -31,10 +31,10 @@
 
                                     <div class="form-group">
                                         <label for="is_active">Status</label>
-                                        <select class="form-control" name="is_active">
+                                        <select class="form-control" name="status">
 
-                                            <option value="active"{{($data_list->is_active=="active")?"selected":""}}>Active</option>
-                                            <option value="inactive"{{($data_list->is_active=="inactive")?"selected":""}}>Inactive</option>
+                                            <option value="active" {{($data_list->status=="active")?"selected":""}}>Active</option>
+                                            <option value="inactive" {{($data_list->status=="inactive")?"selected":""}}>Inactive</option>
                                         </select>
                                     </div>
 

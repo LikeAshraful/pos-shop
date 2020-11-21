@@ -1,14 +1,14 @@
 @extends('backend.layouts.master')
 @section('content')
     <div class="content-wrapper" style="min-height: 1416.81px;">
-    @include('backend.partials.page_top')
+
     <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="offset-md-3 col-md-6 off-md-3">
                         <!-- Profile Image -->
-                        <div class="card card-primary card-outline">
+                        <div class="card card-primary card-outline mt-2">
                                 <div class="card-body box-profile">
                                     <div class="text-center">
                                         <img class="profile-user-img img-fluid img-circle" src="{{(!empty(($user->image))?url('/storage'.$user->image):url('/storage/upload/user/no_image.png'))}}" alt="User profile picture">

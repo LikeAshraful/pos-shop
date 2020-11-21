@@ -43,6 +43,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-info">Submit</button>
+                                    <a href="{{ route('admin.customers.view') }}" class="btn btn-danger"><i class="fas fa-undo"></i></a>
                                 </div>
                             {!! Form::close() !!}
                         </div>

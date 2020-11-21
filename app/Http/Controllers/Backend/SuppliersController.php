@@ -43,12 +43,13 @@ class SuppliersController extends Controller
 
     public function postStore(Request $request)
     {
-        //dd($request);
+        //dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|max:255|unique:suppliers',
             'mobile_no' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required',
+            'status' => 'required',
         ]);
 
 
@@ -57,6 +58,7 @@ class SuppliersController extends Controller
         $supplier->email        = $request->email;
         $supplier->mobile_no    = $request->mobile_no;
         $supplier->address      = $request->address;
+        $supplier->status       = $request->status;
         $supplier->created_by   = Auth::user()->id;
         $supplier->save();
 
@@ -99,7 +101,8 @@ class SuppliersController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required',
             'mobile_no' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'address' => 'required',
+            'address' => 'required', 'status' => 'required',
+
         ]
         );
 
@@ -109,6 +112,7 @@ class SuppliersController extends Controller
         $supplier->email = $request->email;
         $supplier->mobile_no = $request->mobile_no;
         $supplier->address = $request->address;
+        $supplier->status = $request->status;
         $supplier->updated_by   = Auth::user()->id;
         $supplier->save();
         toast('Data has been updated successfully !!','success');

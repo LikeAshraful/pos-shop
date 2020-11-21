@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('mobile_no');
             $table->string('email')->nullable()->unique();
             $table->string('address')->nullable();
-            $table->tinyInteger('status')->default('1');
+            $table->string('status');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->timestamps();
