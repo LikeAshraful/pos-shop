@@ -1,6 +1,4 @@
 @extends('backend.layouts.master')
-
-
 @section('content')
 
     <div class="content-wrapper">
@@ -29,8 +27,9 @@
                                         <th>@lang('form.th_title')</th>
                                         <th>@lang('form.th_supplier')</th>
                                         <th>@lang('form.th_product_category')</th>
+                                        <th>@lang('form.th_product_sub_category')</th>
                                         <th>@lang('form.th_product_brand')</th>
-                                        <th>@lang('form.th_price')</th>
+                                        {{--<th>@lang('form.th_price')</th>--}}
                                         <th>@lang('form.th_quantity')</th>
                                         <th>@lang('form.th_units')</th>
                                         <th>@lang('form.th_created_by')</th>
@@ -43,17 +42,19 @@
                                         @foreach ($products as $key => $list)
                                             <tr>
                                                 <td>{{ ++$key }}</td>
-                                                <td>{{ $list->name }}</td>
-                                                <td><button type="button" class="btn btn-block btn-info btn-xs">{{ $list->prd_supplier_relation->name }}</button></td>
-                                                <td>{{ $list->prd_category_relation->name }}-
-                                                    <span class="badge badge-success">{{ $list->sub_category_relation->name }}</span>
-                                                </td>
+                                                <td>{{ Str::limit($list->name, 20) }}</td>
+                                                <td class="text-success">{{ $list->suppliers->name }}</td>
                                                 <td>
-                                                    <button type="button" class="btn btn-block bg-gradient-info btn-xs">{{ $list->prd_brand_relation->name }}</button>
+                                                    {{ $list->category->name }}
+
                                                 </td>
-                                                <td><button type="button" class="btn btn-block bg-gradient-success btn-xs">{{ $list->price }}</button></td>
+                                                <td><span class="badge badge-success">{{ $list->product_sub_category->name }}</span></td>
+                                                <td class="text-lightblue">
+                                                    {{ $list->brands->name }}
+                                                </td>
+                                                {{--<td><button type="button" class="btn btn-block bg-gradient-success btn-xs">{{ $list->price }}</button></td>--}}
                                                 <td><button type="button" class="btn btn-block bg-gradient-warning btn-xs">{{ $list->quantity }}</button></td>
-                                                <td>{{ $list->prd_unit_relation->name }}</td>
+                                                <td>{{ $list->units->name }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($list->created_at)->diffForHumans() }}</td>
 
 
@@ -128,8 +129,7 @@
 @push('styles')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet"
-          href="{{ URL::asset('backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @endpush
 
 @push('scripts')
@@ -138,7 +138,7 @@
     <script src="{{ URL::asset('backend')}}/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="{{ URL::asset('backend')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ URL::asset('backend')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="{{ URL::asset('backend')}}/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
     <script>
         $(function () {
             $("#example1").DataTable({

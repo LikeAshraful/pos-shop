@@ -1,7 +1,6 @@
 @extends('backend.layouts.master')
 @push('styles')
-
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 @endpush
 
 @section('content')
@@ -11,51 +10,38 @@
                 <div class="row justify-content-md-center">
 
                     <div class="col-lg-12">
-
                         <div class="card card-info mt-2">
                             <div class="card-header">
                                 <h3 class="card-title">{{ $title }}</h3>
                             </div>
-                            {!! Form::open([ 'route' => ['admin.purchase.store' ],'name'=>'supplierForm' ,'id' => 'supplierForm', 'method' => 'post']) !!}
-                            @csrf
+
                             <div class="card-body">
+
                                 <div class="form-row">
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-2">
                                         <label>Date</label>
 
                                         <div class="input-group">
-                                            <input class="form-control" name="date" id="datepicker" placeholder="MM-DD-YY"/>
+                                            <input class="form-control" name="date" id="date"
+                                                   placeholder="MM-DD-YY"/>
                                         </div>
                                         <!-- /.input group -->
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-2">
                                         <label>Purchase No</label>
 
                                         <div class="input-group">
-                                            <input class="form-control" name="purchase_no" id="purchase_no" placeholder="Enter purchase no"/>
+                                            <input class="form-control" name="purchase_no" id="purchase_no"
+                                                   placeholder="Enter purchase no"/>
+
                                         </div>
                                         <!-- /.input group -->
                                     </div>
-
-                                    <div class="form-group col-md-4">
-
-
-                                            <label for="cuntry">Select Product</label>
-                                            <select class="form-control" id="category_id" name="category_id">
-                                                <option>Product name</option>
-                                                @foreach($categories as $data_row)
-                                                    <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>
-                                                @endforeach
-                                            </select>
-
-                                    </div>
-
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                     @if($brands->count() < 1)
                                         <!-- Button trigger modal -->
-                                            <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addBrandModal">
-                                                Add Brand <i class="fa fa-plus" aria-hidden="true"></i>
+                                            <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addBrandModal">Add Brand <i class="fa fa-plus" aria-hidden="true"></i>
                                             </a>
 
                                         @else
@@ -69,127 +55,123 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        @if($categories->count() < 1)
-                                            <!-- Button trigger modal -->
-                                            <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addCatgModal">
-                                                Add Category <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </a>
+                                    <div class="form-group col-md-3">
 
-                                        @else
-                                            <label for="cuntry">Select Category</label>
-                                            <select class="form-control" id="category_id" name="category_id">
-                                                <option>Select category</option>
-                                                @foreach($categories as $data_row)
-                                                    <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
+                                        <label for="cuntry">Select Supplier</label>
+                                        <select class="form-control" id="supplier_id" name="supplier_id">
+                                            <option value="">Select supplier</option>
+                                        </select>
+
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                    @if($sub_categories->count() < 1)
-                                        <!-- Button trigger modal -->
-                                            <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addCatgModal">
-                                                Add Subcategory <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </a>
+                                    <div class="form-group col-md-2">
 
-                                        @else
-                                            <label for="cuntry">Select Subcategory</label>
-                                            <select class="form-control" id="sub_category_id" name="sub_category_id">
-                                                <option>Select Subcategory</option>
-                                                @foreach($sub_categories as $data_row)
-                                                    <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
+                                        <label for="category_id">Select Category</label>
+                                        <select class="form-control" id="category_id" name="category_id">
+                                            <option value="">Select Category</option>
+                                        </select>
+
                                     </div>
 
+                                    <div class="form-group col-md-3">
+                                        <label for="sub_category_id">Subcategory</label>
+                                        <select class="form-control" id="sub_category_id" name="sub_category_id">
+                                            <option value="">Select Subcategory</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="cuntry">Product name</label>
+                                        <select class="form-control" id="product_id" name="product_id">
+                                            <option>Product name</option>
+                                        </select>
 
-                                    <div class="form-group col-md-4">
-                                        @if($suppliers->count() < 1)
-                                                <!-- Button trigger modal -->
-                                                <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addSupplierModal">
-                                                    Add Supplier <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </a>
-                                        @else
-                                            <label for="cuntry">Select Supplier</label>
-                                            <select class="form-control" id="supplier_id" name="supplier_id">
-                                                <option>Select supplier</option>
-                                                @foreach($suppliers as $data_row)
-                                                    <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        @endif
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="status">Quantity</label>
-                                        <input type="text" class="form-control" name="quantity" id="quantity">
+                                    <div class="form-group col-md-3">
+                                        <label for="cuntry">Unit</label>
+                                        <select class="form-control" id="unit_id" name="unit_id">
+                                            <option>Select Unit</option>
+                                            @foreach($units as $unit)
+                                                <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                                            @endforeach
+
+                                        </select>
+
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="status">Purchase Price</label>
-                                        <input type="text" class="form-control" name="price" id="price">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="status">Sale Price</label>
-                                        <input type="text" class="form-control" name="sale_price" id="sale_price">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                    @if($units->count() < 1)
-                                        <!-- Button trigger modal -->
-                                            <a type="button" class="btn btn-outline-info mt-md-4" style="margin-top: 30px !important;" data-toggle="modal" data-target="#addUnitModal">
-                                                Add Unit <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </a>
+                                    <div class="form-group col-md-3">
+                                        <label for="cuntry">Description</label>
+                                        <input class="form-control" id="description" name="description" placeholder="Enter description">
 
-                                        @else
-                                            <label for="unit_id">Select Unit</label>
-                                            <select class="form-control" id="unit_id" name="unit_id">
-                                                <option>Select unit</option>
-                                                @foreach($units as $data_row)
-                                                    <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>--}}
-                                                @endforeach
-
-
-                                            </select>
-                                        @endif
                                     </div>
 
+                                    <div class="form-group">
+                                        <a class="btn btn-info text-white addEventMore" style="margin-top: 30px !important;">
+                                            <i class="fas fa-plus-circle">&nbsp;</i> Add More</a>
+
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea class="form-control" name="description" rows="3" placeholder="Enter ..."></textarea>
-                                </div>
+                                <!-- /.card-body -->
+                                <hr style="background-color: #123455;">
+                                <h3 class="card-title mb-2 text-bold">Purchase List</h3>
+                                <form action="{{ route('admin.purchase.store') }}" method="post">
+                                    @csrf
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>@lang('form.th_product_category')</th>
+                                            <th>@lang('form.th_product_sub_category')</th>
+                                            <th>@lang('form.th_title')</th>
+                                            <th width="10%">Quantity</th>
+                                            <th width="10%">Price</th>
+                                            <th>Unit</th>
+                                            <th>Description</th>
+                                            <th width="15%">Total</th>
+                                            <th width="3%" class="text-right">Action</th>
+
+                                        </tr>
+                                        </thead>
+
+                                        <tbody id="addRow" class="addRow">
+
+                                       </tbody>
 
 
+                                        <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-bold text-dark">Line Total</td>
+
+                                            <td  colspan="1" class="text-white text-bold text-center">
+                                                <input id="estimated_amount" type="text" class="form-control text-right estimated_amount" readonly>
+                                            </td>
+                                            <td>&nbsp;</td>
+
+
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" id="storeButton"  class="btn btn-info text-white">Purchase Store</button>
+
+                                    </div>
+                                </form>
                             </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-info">@lang('form.btn_save')</button>
-                                <a href="{{ route('admin.purchase.view') }}" class="btn btn-danger"><i
-                                        class="fas fa-undo"></i></a>
-                            </div>
-                            {!! Form::close() !!}
-
-
                         </div>
                         <!-- /.card -->
                     </div>
 
-                    <div class="col-md-6">
-
-                    </div>
-
                 </div>
-
-            </div><!-- /.container-fluid -->
+                <!-- /.container-fluid -->
+            </div>
         </section>
+
 
     </div>
 
     <!-- Category Modal-->
-    <div class="modal fade" id="addCatgModal" tabindex="-1" role="dialog" aria-labelledby="addCatgModal" aria-hidden="true">
+    <div class="modal fade" id="addCatgModal" tabindex="-1" role="dialog" aria-labelledby="addCatgModal"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -236,8 +218,9 @@
         </div>
     </div>
 
-    <<!-- Supplier Modal-->
-    <div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-labelledby="addSupplierModal" aria-hidden="true">
+    <!-- Supplier Modal-->
+    <div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-labelledby="addSupplierModal"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -296,8 +279,9 @@
             </div>
         </div>
     </div>
-    <<!-- Brand Modal-->
-    <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addBrandModal" aria-hidden="true">
+    <!-- Brand Modal-->
+    <div class="modal fade" id="addBrandModal" tabindex="-1" role="dialog" aria-labelledby="addBrandModal"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -314,7 +298,8 @@
                         <div class="form-group">
                             <label for="name">@lang('form.name')<span class="text-danger">*</span></label>
 
-                            <input type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}" name="name" id="name" placeholder="Enter brand name"/>
+                            <input type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}"
+                                   name="name" id="name" placeholder="Enter brand name"/>
 
                             @if ($errors->has('name'))
                                 <div class="error">
@@ -332,7 +317,8 @@
                         </div>
                         <div class="form-group">
                             <label>@lang('form.body')</label>
-                            <textarea name="description" class="form-control" rows="3" placeholder="Enter short desc...."></textarea>
+                            <textarea name="description" class="form-control" rows="3"
+                                      placeholder="Enter short desc...."></textarea>
                         </div>
 
                         <div class="form-group">
@@ -343,9 +329,6 @@
                                 <option value="inactive">Inactive</option>
                             </select>
                         </div>
-
-
-
 
 
                     </div>
@@ -360,7 +343,8 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addUnitModal" tabindex="-1" role="dialog" aria-labelledby="addUnitModal" aria-hidden="true">
+    <div class="modal fade" id="addUnitModal" tabindex="-1" role="dialog" aria-labelledby="addUnitModal"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -387,7 +371,6 @@
                                 @foreach ($brands as $key => $brand_data)
                                     <option value="{{ $brand_data->id }}">{{ $brand_data->name }}</option>
                                 @endforeach
-
 
 
                             </select>
@@ -417,75 +400,282 @@
     </div>
 
 
-
 @endsection
 @push('scripts')
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
+    <script id="document-template" type="text/x-handlebars-template">
+
+        <tr class="delete_add_more_item" id="delete_add_more_item">
+
+            <input type="hidden" name="date[]" value="@{{ date }}">
+
+            <input type="hidden" name="purchase_no[]" value="@{{ purchase_no }}">
+
+            <input type="hidden" name="brand_id[]" value="@{{ brand_id }}">
+
+            <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
+
+
+            <td>
+                <input type="hidden" name="category_id[]" value="@{{ category_id }}">@{{ category_name }}
+            </td>
+
+            <td>
+                <input type="hidden" name="sub_category_id[]" value="@{{ sub_category_id }}">@{{ sub_category_name }}
+            </td>
+
+            <td>
+                <input type="hidden" name="product_id[]" value="@{{ product_id }}">@{{ product_name }}
+            </td>
+            <td>
+                <input type="number" min="1" class="form-control form-control-sm buying_qty" name="buying_qty[]" value="1">
+            </td>
+            <td>
+                <input type="number" class="form-control form-control-sm unit_price" name="unit_price[]" value="">
+            </td>
+            <td>
+                <input type="hidden" class="form-control form-control-sm unit_id" name="unit_id[]" value="@{{ unit_id }}">@{{ unit_name }}
+            </td>
+            <td>
+                <textarea type="text" class="form-control form-control-sm description" name="description[]">@{{ description }}</textarea>
+
+            </td>
+            <td>
+                <input type="number" class="form-control form-control-sm text-right buying_price" value="1" name="buying_price[]" readonly>
+            </td>
+            <td>
+                <i class="btn btn-danger btn-sm fa fa-window-close removeEventMore"></i>
+
+            </td>
+
+
+
+        </tr>
+
+
+    </script>
+    <script type="text/javascript">
+        $(document).on('click', ".addEventMore", function () {
+
+            var date = $('#date').val();
+            var purchase_no = $('#purchase_no').val();
+            var brand_id            = $('#brand_id').val();
+            var brand_name          = $('#brand_id').find('option:selected').text();
+            var supplier_id         = $('#supplier_id').val();
+            var supplier_name       = $('#supplier_id').find('option:selected').text();
+            var category_id           = $('#category_id').val();
+            var category_name         = $('#category_id').find('option:selected').text();
+            var sub_category_id       = $('#sub_category_id').val();
+            var sub_category_name     = $('#sub_category_id').find('option:selected').text();
+            var product_id            = $('#product_id').val();
+            var product_name          = $('#product_id').find('option:selected').text();
+            var unit_id               = $('#unit_id').val();
+            var unit_name             = $('#unit_id').find('option:selected').text();
+            var buying_qty            = $('#buying_qty').val();
+            var unit_price            = $('#unit_price').val();
+            var description           = $('#description').val();
+            var buying_price          = $('#buying_price').val();
+
+            if (date == '') {
+                $.notify("Date is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (purchase_no == '') {
+                $.notify("Purchase is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (brand_id == '') {
+                $.notify("Brand is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (supplier_id == '') {
+                $.notify("Supplier is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (category_id == '') {
+                $.notify("Category is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (sub_category_id == '') {
+                $.notify("Sub category is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (product_id == '') {
+                $.notify("Product is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (unit_id == '') {
+                $.notify("Unit is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+
+            if (buying_qty == '') {
+                $.notify("Buying Quantity is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+            if (unit_price == '') {
+                $.notify("Unit price is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+
+            if (buying_price == '') {
+                $.notify("Puying price is rquired", {globalPosition: 'top-right', className: 'error'});
+                return false;
+            }
+
+            var source = $("#document-template").html();
+            var template = Handlebars.compile(source);
+            var data = {
+                date: date,
+                purchase_no: purchase_no,
+                brand_id:        brand_id,
+                supplier_id:      supplier_id,
+                category_id: category_id,
+                category_name: category_name,
+                sub_category_id: sub_category_id,
+                sub_category_name: sub_category_name,
+                product_id: product_id,
+                product_name: product_name,
+                buying_qty: buying_qty,
+                unit_price: unit_price,
+                unit_id: unit_id,
+                unit_name: unit_name,
+                buying_price: buying_price,
+                description: description
+            };
+            var html = template(data);
+            $("#addRow").append(html);
+        });
+        $(document).on('click',".removeEventMore", function (event) {
+            $(this).closest(".delete_add_more_item").remove();
+            totalAmountPrice();
+        });
+
+        $(document).on('keyup click', '.unit_price,.buying_qty', function (event) {
+            var unit_price  = $(this).closest("tr").find("input.unit_price").val();
+            var qty         = $(this).closest("tr").find("input.buying_qty").val();
+            var total = unit_price * qty;
+            $(this).closest("tr").find("input.buying_price").val(total);
+            totalAmountPrice();
+
+        });
+        //totalAmountPrice
+        function totalAmountPrice(){
+            var sum=0;
+            $(".buying_price").each(function (){
+                var value = $(this).val();
+                if(!isNaN(value) && value.length != 0){
+                    sum += parseFloat(value);
+                }
+            })
+            $('#estimated_amount').val(sum);
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            //Loading supplier under brand_id selection
+            $(document).on('change', '#brand_id', function () {
+                $('#category_id').empty()
+                $('#category_id').append(`<option value="">Select category</option>`)
+
+                $('#sub_category_id').empty()
+                $('#sub_category_id').append(`<option value="">Select subcategory</option>`)
+
+                $('#product_id').empty()
+                $('#product_id').append(`<option value="">Select product</option>`)
+
+
+                var my_brand_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('get-supplier') }}",
+                    type: "GET",
+                    data: {brand_id: my_brand_id},
+                    success: function (data) {
+                        var html = '<option value="">Select Supplier(Distributor)</option>';
+                        $.each(data, function (key, v) {
+                            html += '<option value="' + v.supplier_id + '">' + v.prd_supplier.name + '</option>';
+                        });
+                        $('#supplier_id').html(html);
+
+                    }
+                });
+            });
+            //Loading category_id under supplier_id selection
+            $(document).on('change', '#supplier_id', function () {
+                $('#sub_category_id').empty()
+                $('#sub_category_id').append(`<option value="">Select subcategory</option>`)
+                $('#category_id').empty()
+                $('#category_id').append(`<option value="">Select category</option>`)
+
+                var my_supplier_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('get-category') }}",
+                    type: "GET",
+                    data: {supplier_id: my_supplier_id},
+                    success: function (data) {
+                        var html = '<option value="">Select category</option>';
+
+                        $.each(data, function (key, v) {
+                            html += '<option value="' + v.category_id + '">' + v.category.name + '</option>'
+                        });
+                        $('#category_id').html(html);
+                    }
+                });
+            });
+
+            //Loading sub_category_id under category_id selection
+            $(document).on('change', '#category_id', function () {
+                var my_category_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('get-sub-category') }}",
+                    type: "GET",
+                    data: {category_id: my_category_id},
+                    success: function (data) {
+                        var html = '<option value="">Select subcategory</option>';
+
+                        $.each(data, function (key, v) {
+                            html += '<option value="' + v.sub_category_id + '">' + v.product_sub_category.name + '</option>' //prd_category_relation
+                        });
+                        $('#sub_category_id').html(html);
+                    }
+                });
+            });
+
+            //Loading product under subcategory_id selection
+            $(document).on('change', '#sub_category_id', function () {
+                var my_sub_category_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('get-products') }}",
+                    type: "GET",
+                    data: {sub_category_id: my_sub_category_id},
+                    success: function (data) {
+                        var html = '<option value="">Select product</option>';
+
+                        $.each(data, function (key, v) {
+                            html += '<option value="' + v.id + '">' + v.name + '</option>'
+                        });
+                        $('#product_id').html(html);
+                    }
+                });
+            });
+
+
+        });
+
+    </script>
+
+
+
     <script type="text/javascript">
 
-
         $(document).ready(function () {
-            $('#datepicker').datepicker({
+            $('#date').datepicker({
                 uiLibrary: 'bootstrap4'
             });
 
-            $("#prdForm").submit(function (event) {
-                loadAjax();
-                event.preventDefault()
-            });
-
-            $('#supplierForm').validate({
-                rules: {
-                    name: {
-                        required: true,
-                        name: true,
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                    },
-                    mobile_no: {
-                        required: true,
-                        mobile_no: true,
-                    },
-                    address: {
-                        required: true,
-                        address: true
-                    },
-
-                },
-                messages: {
-                    name: {
-                        required: "Please enter a name",
-                        name: "Please enter name"
-                    },
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a email"
-                    },
-                    mobile_no: {
-                        required: "Please enter a mobile no",
-                        mobile_no: "Please enter a mobile"
-                    },
-                    address: {
-                        required: "Please provide a address",
-                        address: "Please write address"
-                    }
-
-                },
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
         });
     </script>
 

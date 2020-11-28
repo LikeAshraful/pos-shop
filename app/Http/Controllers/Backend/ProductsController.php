@@ -77,7 +77,6 @@ class ProductsController extends Controller
             'unit_id' => 'required',
             'sub_category_id' => 'required',
             'name' => 'required|string|max:255',
-            'price' => 'required',
             'quantity' => 'required',
             'description' => 'required',
 
@@ -89,7 +88,6 @@ class ProductsController extends Controller
                 'unit_id.required' => 'Please select unit',
                 'sub_category_id.required' => 'Please select sub_category',
                 'name.required' => 'Please enter a name',
-                'price.required' => 'Please enter a price',
                 'quantity' => 'Please enter quantity',
                 'description' => 'Enter description',
             ]
@@ -102,7 +100,7 @@ class ProductsController extends Controller
         $product->brand_id = $request->brand_id;
         $product->unit_id = $request->unit_id;
         $product->name = $request->name;
-        $product->price = $request->price;
+        #$product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->description = $request->description;
         $product->created_by = Auth::user()->id;
@@ -125,10 +123,11 @@ class ProductsController extends Controller
         $data['title'] = "Update Product";
         $data['suppliers'] = Supplier::all();
         $data['categories'] = Category::all();
+        $data['sub_categories'] = SubCategory::all();
         $data['brands'] = Brand::all();
         $data['units'] = Unit::all();
         $data['product'] = Product::find($id);
-        //dd($data['product']);
+        //dd($data['sub_categories']);
         if (!is_null($data)) {
             return view('backend.pages.product.edit', $data);
         } else {
@@ -145,12 +144,13 @@ class ProductsController extends Controller
      */
     public function postUpdate(Request $request, $id)
     {
-        //dd($request->all());
+       // dd($request->all());
         $request->validate([
             'category_id' => 'required',
             'supplier_id' => 'required',
             'brand_id' => 'required',
             'unit_id' => 'required',
+            'sub_category_id' => 'required',
             'name' => 'required|string|max:255',
             'price' => 'required',
             'quantity' => 'required',
@@ -164,6 +164,7 @@ class ProductsController extends Controller
         $product->supplier_id = $request->supplier_id;
         $product->brand_id = $request->brand_id;
         $product->unit_id = $request->unit_id;
+        $product->sub_category_id = $request->sub_category_id;
         $product->name = $request->name;
         $product->price = $request->price;
         $product->quantity = $request->quantity;

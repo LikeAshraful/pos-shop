@@ -64,7 +64,10 @@
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $list->name }}</td>
                                                 <td>{{ $list->code }}</td>
-
+                                                @php
+                                                    $count_brand = App\Models\Product::where('brand_id',$list->id)->count();
+                                                @endphp
+                                                  {{--  @dd($count_brand);--}}
                                                 <td>
 
                                                     @if($list->status =="active")
@@ -78,11 +81,12 @@
 
                                                     <a class="badge badge-warning" href="{{route('admin.brand.edit',$list->id)}}"><i
                                                             class="fas fa-edit"></i></a>
-
+                                                    @if($count_brand < 1)
                                                     <a href="#deleteModal{{ $list->id }}" data-toggle="modal"
                                                        class="badge badge-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </a>
+                                                    @endif
                                                     <!-- Delete Modal -->
                                                     <div class="modal fade" id="deleteModal{{ $list->id }}"
                                                          tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

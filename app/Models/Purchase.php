@@ -7,32 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     protected $table = 'purchases';
+    // Primary Key
+    public $primaryKey = 'id';
+    // Timestamps
+    public $timestamps = true;
+    protected $fillable = [
+        'date', 'purchase_no', 'brand_id', 'supplier_id', 'category_id', 'sub_category_id', 'product_id','unit_id', 'buying_price', 'buying_qty','description', 'created_by', 'status',
+    ];
 
 
-
-    public function prd_brand_relation()
+    public function products()
     {
-        return $this->belongsTo('App\Models\Brand','brand_id')->withDefault();
+        return $this->belongsTo('App\Models\Product', 'product_id')->withDefault();
     }
 
-    public function prd_category_relation()
+    public function brand()
     {
-        return $this->belongsTo('App\Models\Category','category_id')->withDefault();
-    }
-    public function sub_category_relation()
-    {
-        return $this->belongsTo('App\Models\SubCategory','sub_category_id')->withDefault();
+        return $this->belongsTo('App\Models\Brand', 'brand_id')->withDefault();
     }
 
-    public function prd_supplier_relation()
+    public function category()
     {
-        return $this->belongsTo('App\Models\Supplier','supplier_id')->withDefault();
+        return $this->belongsTo('App\Models\Category', 'category_id')->withDefault();
     }
 
-    public function prd_unit_relation()
-    {
-        return $this->belongsTo('App\Models\Unit','unit_id')->withDefault();
-    }
+
 
 
 }

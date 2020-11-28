@@ -43,8 +43,8 @@
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $list->name }}</td>
                                                 {{--<td>{{ $list->prd_supplier_relation->name }}</td>--}}
-                                                <td>{{ $list->prd_category_relation->name }}</td>
-                                                <td>{{ $list->prd_brand_relation->name }}</td>
+                                                <td>{{ $list->prd_category->name }}</td>
+                                                <td>{{ $list->prd_brand->name }}</td>
                                                 <td>{{ Auth::user()->name }}</td>
 
                                                 <td>{{ \Carbon\Carbon::parse($list->created_at)->diffForHumans() }}</td>

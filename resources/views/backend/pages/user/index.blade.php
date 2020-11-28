@@ -1,5 +1,4 @@
 @extends('backend.layouts.master')
-
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -20,7 +19,6 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -55,7 +53,6 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
                                     @if(count($all_user))
                                         @foreach ($all_user as $key => $list)
 
@@ -70,11 +67,8 @@
                                                     @else
                                                         <span class="badge-warning badge">General User</span>
                                                     @endif
-
                                                 </td>
                                                 <td>
-
-
                                                     <a href="#deleteModal{{ $list->id }}" data-toggle="modal" class="badge badge-danger">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                     </a>
@@ -111,8 +105,6 @@
                                             <td colspan="5"> Opps!!, {{$title}} Not found</td>
                                         </tr>
                                     @endif
-
-
                                     </tbody>
                                 </table>
 
@@ -127,7 +119,4 @@
         </section>
         <!-- /.content -->
     </div>
-
-
-
 @endsection

@@ -19,6 +19,7 @@ return [
     'th_supplier' => 'Supplier',
     'th_customer' => 'Customer',
     'th_product_category' => 'Category',
+    'th_product_sub_category' => 'Subcategory',
     'th_product_unit' => 'Unit',
     'th_product_brand' => 'Brand',
     'th_time' => 'Time',
@@ -42,10 +43,12 @@ return [
     'btn_delete' => 'Delete',
     'btn_cancle' => 'Cancel',
     'btn_search' => 'Search',
+
     //    Add Supplier
     'mobile_no' => 'Mobile no',
     'address' => 'Address',
-
+    //Purchase
+    'btn_purchase_store' => 'Purchase save',
     // Password Change form buttons
     'current_password_form_label' => 'Current Pasasword',
     'new_password_form_label' => 'New Pasasword',
@@ -66,6 +69,7 @@ return [
     'body' => 'Body',
     'description' => 'Description',
     'status' => 'Status',
+
 
 
 ];

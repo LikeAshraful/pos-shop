@@ -194,11 +194,13 @@
                     </li>
 
                     <li class="nav-item has-treeview {{($prefix=='/purchase')?'menu-open':''}}">
-                        <a href="#" class="nav-link">
+                        <a class="nav-link">
                             <i class="nav-icon fas fa-toolbox"></i>
                             <p>
                                 Manage Purchase <i class="right fas fa-angle-left"></i>
                             </p>
+
+
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -206,6 +208,16 @@
                                    class="nav-link {{($route=='admin.purchase.view')?'active':''}}">
                                     <i class="far fa-list-alt"></i>
                                     <p>Purchase</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('purchase.pending.list')}}"
+                                   class="nav-link {{($route=='purchase.pending.list')?'active':''}}">
+                                    <i class="far fa-list-alt"></i>
+                                    <p>Approve Purchase</p>
                                 </a>
                             </li>
 

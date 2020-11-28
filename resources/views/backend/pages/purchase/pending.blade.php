@@ -12,7 +12,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">{{$title}} List</h3>
                                 <div class="float-right">
-                                    <a href="{{ route('admin.purchase.create') }}" class="btn btn-outline-info"><i class="fas fa-plus"></i> &nbsp;Add {{$title}}</a>
+                                    {{--<a href="{{ route('admin.purchase.create') }}" class="btn btn-outline-info"><i class="fas fa-plus"></i> &nbsp;Add {{$title}}</a>--}}
                                 </div>
 
                             </div>
@@ -58,36 +58,35 @@
                                                 </td>
                                                 <td>
                                                     @if($purchase->status == 0)
-                                                        <a href="#deleteModal{{ $purchase->id }}" data-toggle="modal" class="badge badge-danger text-right">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        <a title="Approve" href="#approveModal{{ $purchase->id }}" data-toggle="modal" class="badge badge-success text-right">
+                                                            <i class="fa fa-check" aria-hidden="true"></i>
                                                         </a>
                                                         <!-- Delete Modal -->
-                                                        <div class="modal fade" id="deleteModal{{ $purchase->id }}"
+                                                        <div class="modal fade" id="approveModal{{ $purchase->id }}"
                                                              tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                              aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
                                                                         <h5 class="modal-title" id="exampleModalLabel">Are
-                                                                            sure to delete?</h5>
+                                                                            sure to approve?</h5>
                                                                         <button type="button" class="close"
                                                                                 data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <form
-                                                                            action="{!! route('admin.purchase.delete', $purchase->id) !!}"
-                                                                            method="post">
-                                                                            {{ csrf_field() }}
-                                                                            <button type="submit" class="btn btn-danger">
-                                                                                Permanent Delete
+                                                                        <form action="{!! route('purchase.approve', $purchase->id) !!}" method="post">
+                                                                            @csrf
+
+                                                                            <button type="submit" class="btn btn-success">
+                                                                                Permanent Approve
                                                                             </button>
                                                                         </form>
 
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
+                                                                        <button type="button" class="btn btn-success"
                                                                                 data-dismiss="modal">Cancel
                                                                         </button>
                                                                     </div>

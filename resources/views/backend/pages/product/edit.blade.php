@@ -73,11 +73,11 @@
 
                                     <div class="form-group col-md-4">
 
-                                        <label for="cuntry">Select subcategory</label>
+                                        <label for="sub_category_id">Select subcategory</label>
                                         <select class="form-control" id="sub_category_id" name="sub_category_id">
-                                            <option>Select subcategory</option>
+
                                             @foreach($sub_categories as $data_row)
-                                                <option value="{{ $data_row->id}}" @if($data_row->id == $product->category_id): selected @else ' ' @endif>
+                                                <option value="{{ $data_row->id}}" @if($data_row->id == $product->sub_category_id): selected @else ' ' @endif>
                                                 {{ $data_row->name }}
                                                 </option>
                                             @endforeach

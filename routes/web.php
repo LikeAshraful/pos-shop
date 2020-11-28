@@ -115,10 +115,18 @@ Route::group(['prefix' => 'purchase'], function () {
     Route::get('/index', 'Backend\PurchaseController@getIndex')->name('admin.purchase.view');
     Route::get('/create', 'Backend\PurchaseController@getCreate')->name('admin.purchase.create');
     Route::post('/store', 'Backend\PurchaseController@postStore')->name('admin.purchase.store');
-    Route::get('/edit/{id}', 'Backend\PurchaseController@getEdit')->name('admin.purchase.edit');
-    Route::post('/update/{id}', 'Backend\PurchaseController@postUpdate')->name('admin.purchase.update');
+    Route::get('/pending', 'Backend\PurchaseController@pendingList')->name('purchase.pending.list');
+    Route::post('/approve/{id}', 'Backend\PurchaseController@purchaseApprove')->name('purchase.approve');
     Route::post('/delete/{id}', 'Backend\PurchaseController@postDelete')->name('admin.purchase.delete');
 
 });
+//DefaultController for Ajax
+Route::get('/get-supplier', 'Backend\DefaultController@getSupplier')->name('get-supplier');
+Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
+Route::get('/get-sub-category', 'Backend\DefaultController@getSubCategory')->name('get-sub-category');
+Route::get('/get-products', 'Backend\DefaultController@getProducts')->name('get-products');
+
+
+
 
 

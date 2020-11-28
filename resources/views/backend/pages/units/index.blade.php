@@ -27,7 +27,7 @@
                                     <tr>
                                         <th>@lang('form.th_id')</th>
                                         <th>@lang('form.th_product_unit')</th>
-                                        <th>@lang('form.th_product_brand')</th>
+
                                         <th>@lang('form.th_created_by')</th>
                                         <th>@lang('form.th_updated_by')</th>
                                         <th>@lang('form.th_status')</th>
@@ -42,7 +42,7 @@
                                             <tr>
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $list->name }}</td>
-                                                <td>{{ $list->brands->name }}</td>
+
                                                 <td>{{ Auth::user()->name }}</td>
                                                 <td>{{ Auth::user()->name }}</td>
                                                 <td>

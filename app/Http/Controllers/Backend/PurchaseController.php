@@ -12,7 +12,7 @@ use App\Models\Product;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 
 class PurchaseController extends Controller
 {
@@ -36,7 +36,7 @@ class PurchaseController extends Controller
     public function getIndex()
     {
         $data['title'] = "Purchase";
-        $data['products'] = Purchase::all();
+        $data['products'] = Purchase::orderBy('date', 'desc')->orderBy('id', 'desc')->get();
         //dd($data['products']);
         return view('backend.pages.purchase.index', $data);
     }
@@ -54,9 +54,8 @@ class PurchaseController extends Controller
         $data['sub_categories'] = SubCategory::all();
         $data['brands'] = Brand::all();
         $data['units'] = Unit::all();
-        //$units = $this->unit->getSelectFromData();
+        $data['products'] = Product::all();
         //dd($data);
-        //return view('backend.pages.product.create', $data)->withUnits($units);;
         return view('backend.pages.purchase.create', $data);;
     }
 
@@ -69,46 +68,38 @@ class PurchaseController extends Controller
 
     public function postStore(Request $request)
     {
-        //dd($request->all());
-        $request->validate([
-            'category_id' => 'required',
-            'supplier_id' => 'required',
-            'brand_id' => 'required',
-            'unit_id' => 'required',
-            'sub_category_id' => 'required',
-            'name' => 'required|string|max:255',
-            'price' => 'required',
-            'quantity' => 'required',
-            'description' => 'required',
+        //dd('Okay');
+        if ($request->category_id == null) {
 
-        ],
-            [
-                'category_id.required' => 'Please select category',
-                'supplier_id.required' => 'Please select supplier',
-                'brand_id.required' => 'Please select brand',
-                'unit_id.required' => 'Please select unit',
-                'sub_category_id.required' => 'Please select sub_category',
-                'name.required' => 'Please enter a name',
-                'price.required' => 'Please enter a price',
-                'quantity' => 'Please enter quantity',
-                'description' => 'Enter description',
-            ]
-        );
+            toast('Sorry do not dot select any items !!', 'error');
+            return redirect()->back();
 
-        $product = new  Product();
-        $product->category_id = $request->category_id;
-        $product->sub_category_id = $request->sub_category_id;
-        $product->supplier_id = $request->supplier_id;
-        $product->brand_id = $request->brand_id;
-        $product->unit_id = $request->unit_id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->description = $request->description;
-        $product->created_by = Auth::user()->id;
-        $product->save();
+        } else {
+            $count_category = count($request->category_id);
+            // dd($count_brand);
+            for ($i = 0; $i < $count_category; $i++) {
+                $pucrhase = new  Purchase();
+                $pucrhase->date = date('Y-m-d', strtotime($request->date[$i]));
+                $pucrhase->purchase_no = $request->purchase_no[$i];
+                $pucrhase->brand_id = $request->brand_id[$i];
+                $pucrhase->supplier_id = $request->supplier_id[$i];
+                $pucrhase->category_id = $request->category_id[$i];
+                $pucrhase->sub_category_id = $request->sub_category_id[$i];
+                $pucrhase->product_id = $request->product_id[$i];
+                $pucrhase->unit_id = $request->unit_id[$i];
+                $pucrhase->buying_price = $request->buying_price[$i];
+                $pucrhase->buying_qty = $request->buying_qty[$i];
+                $pucrhase->description = $request->description[$i];
+                $pucrhase->created_by = Auth::user()->id;
+                $pucrhase->status = '0';
+                //dd($pucrhase);
+                $pucrhase->save();
+
+            }
+
+        }
         toast('Data added successfully !!', 'success');
-        return redirect()->route('admin.products.view');
+        return redirect()->route('admin.purchase.view');
 
     }
 
@@ -136,41 +127,33 @@ class PurchaseController extends Controller
         }
     }
 
+    public function pendingList()
+    {
+        $data['title'] = "Pending Purchase";
+        $data['products'] = Purchase::orderBy('date', 'desc')->orderBy('id', 'desc')->where('status', '0' )->get();
+        return view('backend.pages.purchase.pending', $data);
+    }
+
     /**
      * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function postUpdate(Request $request, $id)
+    public function purchaseApprove($id)
     {
-        //dd($request->all());
-        $request->validate([
-            'category_id' => 'required',
-            'supplier_id' => 'required',
-            'brand_id' => 'required',
-            'unit_id' => 'required',
-            'name' => 'required|string|max:255',
-            'price' => 'required',
-            'quantity' => 'required',
-            'description' => 'required',
+        $purchase = Purchase::find($id);
 
-        ]
-        );
+        $product = Product::where('id', $purchase->product_id )->first();
+        //dd($product);
+        $purchase_qty = ((DOUBLE)($purchase->buying_qty))+((DOUBLE)($product->quantity));
+        $product->quantity = $purchase_qty;
 
-        $product = Product::find($id);
-        $product->category_id = $request->category_id;
-        $product->supplier_id = $request->supplier_id;
-        $product->brand_id = $request->brand_id;
-        $product->unit_id = $request->unit_id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->updated_by = Auth::user()->id;
-        $product->save();
-        toast('Data has been updated successfully !!', 'success');
-        return redirect()->route('admin.products.view');
+        if($product->save()){
+            DB::table('purchases')->where('id',$id)->update(['status'=> 1]);
+        }
+
+        toast('Data has been approved successfully !!', 'success');
+        return redirect()->route('purchase.pending.list');
     }
 
     /**
@@ -182,8 +165,8 @@ class PurchaseController extends Controller
     public function postDelete($id)
     {
 
-        $delete_row = Product::find($id);
-       // dd($delete_row);
+        $delete_row = Purchase::find($id);
+        //dd($delete_row);
         if (!is_null($delete_row)) {
             $delete_row->delete();
         }

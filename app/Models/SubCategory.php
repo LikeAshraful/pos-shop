@@ -9,27 +9,22 @@ class SubCategory extends Model
     protected $table = 'sub_categories';
 
     protected $fillable = [
-        'name','slug','status','category_id','created_by','updated_by'
+        'name','category_id','brand_id','slug','created_by','updated_by'
     ];
 
-    public function prd_brand_relation()
+    public function prd_brand()
     {
         return $this->belongsTo('App\Models\Brand','brand_id')->withDefault();
     }
 
-    public function prd_category_relation()
+    public function prd_category()
     {
         return $this->belongsTo('App\Models\Category','category_id')->withDefault();
     }
 
-    public function prd_supplier_relation()
+    public function product()
     {
-        return $this->belongsTo('App\Models\Supplier','category_id')->withDefault();
-    }
-
-    public function prd_unit_relation()
-    {
-        return $this->belongsTo('App\Models\Unit','unit_id')->withDefault();
+        return $this->belongsTo('App\Models\Product','id')->withDefault();
     }
 
 

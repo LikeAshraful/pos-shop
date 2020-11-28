@@ -100,14 +100,14 @@
                                         <input type="text" class="form-control" name="quantity" id="quantity">
                                     </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="status">Purchase Price</label>
-                                        <input type="text" class="form-control" name="price" id="price">
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="status">Sale Price</label>
-                                        <input type="text" class="form-control" name="sale_price" id="sale_price">
-                                    </div>
+{{--                                    <div class="form-group col-md-4">--}}
+{{--                                        <label for="status">Purchase Price</label>--}}
+{{--                                        <input type="text" class="form-control" name="price" id="price">--}}
+{{--                                    </div>--}}
+{{--                                    <div class="form-group col-md-4">--}}
+{{--                                        <label for="status">Sale Price</label>--}}
+{{--                                        <input type="text" class="form-control" name="sale_price" id="sale_price">--}}
+{{--                                    </div>--}}
                                     <div class="form-group col-md-4">
                                     @if($units->count() < 1)
                                         <!-- Button trigger modal -->

@@ -23,19 +23,19 @@
                                         {!! $errors->first('name', '<label class="help-block text-danger">:message</label>') !!}
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="status">@lang('form.brand')</label>
-                                        <select class="form-control" id="brand_id" name="brand_id">
+{{--                                    <div class="form-group">--}}
+{{--                                        <label for="status">@lang('form.brand')</label>--}}
+{{--                                        <select class="form-control" id="brand_id" name="brand_id">--}}
 
-                                            <option>Select brand</option>
-                                            @foreach ($brands as $key => $brand_data)
-                                                <option value="{{ $brand_data->id }}">{{ $brand_data->name }}</option>
-                                            @endforeach
+{{--                                            <option>Select brand</option>--}}
+{{--                                            @foreach ($brands as $key => $brand_data)--}}
+{{--                                                <option value="{{ $brand_data->id }}">{{ $brand_data->name }}</option>--}}
+{{--                                            @endforeach--}}
 
 
 
-                                        </select>
-                                    </div>
+{{--                                        </select>--}}
+{{--                                    </div>--}}
 
                                     <div class="form-group">
                                         <label for="status">@lang('form.status')</label>

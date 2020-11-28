@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/fontawesome-free/css/all.min.css">
 
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ URL::asset('backend')}}/dist/css/ionicons.min.css">
 
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 
@@ -26,9 +26,6 @@
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/summernote/summernote-bs4.css">
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-
-
 
     @stack('styles')
     @stack('scripts')

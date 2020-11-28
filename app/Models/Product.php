@@ -10,26 +10,36 @@ class Product extends Model
 
 
 
-    public function prd_brand_relation()
+
+    public function brands()
     {
         return $this->belongsTo('App\Models\Brand','brand_id')->withDefault();
     }
 
-    public function prd_category_relation()
-    {
-        return $this->belongsTo('App\Models\Category','category_id')->withDefault();
-    }
-    public function sub_category_relation()
-    {
-        return $this->belongsTo('App\Models\SubCategory','sub_category_id')->withDefault();
-    }
-
-    public function prd_supplier_relation()
+    public function prd_supplier()
     {
         return $this->belongsTo('App\Models\Supplier','supplier_id')->withDefault();
     }
 
-    public function prd_unit_relation()
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category','category_id')->withDefault();
+    }
+
+    public function product_sub_category()
+    {
+        //return $this->belongsTo('App\Models\SubCategory','sub_category_id')->withDefault();
+        return $this->belongsTo(SubCategory::class, 'sub_category_id','id','name');
+    }
+
+
+    public function suppliers()
+    {
+        return $this->belongsTo('App\Models\Supplier', 'supplier_id')->withDefault();
+    }
+
+
+    public function units()
     {
         return $this->belongsTo('App\Models\Unit','unit_id')->withDefault();
     }
