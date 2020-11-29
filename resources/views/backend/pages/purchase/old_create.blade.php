@@ -23,7 +23,7 @@
                                         <label>Date</label>
 
                                         <div class="input-group">
-                                            <input class="form-control form-control-sm" name="date" id="date"
+                                            <input class="form-control" name="date" id="date"
                                                    placeholder="MM-DD-YY"/>
                                         </div>
                                         <!-- /.input group -->
@@ -32,7 +32,7 @@
                                         <label>Purchase No</label>
 
                                         <div class="input-group">
-                                            <input class="form-control form-control-sm" name="purchase_no" id="purchase_no"
+                                            <input class="form-control" name="purchase_no" id="purchase_no"
                                                    placeholder="Enter purchase no"/>
 
                                         </div>
@@ -46,7 +46,7 @@
 
                                         @else
                                             <label for="cuntry">Select Brand</label>
-                                            <select class="form-control select2 form-control-sm" id="brand_id" name="brand_id">
+                                            <select class="form-control select2" id="brand_id" name="brand_id">
                                                 <option>Select brand</option>
                                                 @foreach($brands as $data_row)
                                                     <option value="{{ $data_row->id}}">{{ $data_row->name }}</option>
@@ -58,7 +58,7 @@
                                     <div class="form-group col-md-3">
 
                                         <label for="cuntry">Select Supplier</label>
-                                        <select class="form-control select2 form-control-sm" id="supplier_id" name="supplier_id">
+                                        <select class="form-control select2" id="supplier_id" name="supplier_id">
                                             <option value="">Select supplier</option>
                                         </select>
 
@@ -67,7 +67,7 @@
                                     <div class="form-group col-md-2">
 
                                         <label for="category_id">Select Category</label>
-                                        <select class="form-control select2 form-control-sm" id="category_id" name="category_id">
+                                        <select class="form-control select2" id="category_id" name="category_id">
                                             <option value="">Select Category</option>
                                         </select>
 
@@ -75,13 +75,13 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="sub_category_id">Subcategory</label>
-                                        <select class="form-control select2 form-control-sm" id="sub_category_id" name="sub_category_id">
+                                        <select class="form-control select2" id="sub_category_id" name="sub_category_id">
                                             <option value="">Select Subcategory</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="cuntry">Product name</label>
-                                        <select class="form-control select2 form-control-sm" id="product_id" name="product_id">
+                                        <select class="form-control select2" id="product_id" name="product_id">
                                             <option>Product name</option>
                                         </select>
 
@@ -89,7 +89,7 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="cuntry">Unit</label>
-                                        <select class=" select2 form-control form-control-sm" id="unit_id" name="unit_id">
+                                        <select class="form-control select2" id="unit_id" name="unit_id">
                                             <option>Select Unit</option>
                                             @foreach($units as $unit)
                                                 <option value="{{ $unit->id }}">{{ $unit->name }}</option>
@@ -101,12 +101,12 @@
 
                                     <div class="form-group col-md-3">
                                         <label for="cuntry">Description</label>
-                                        <input class="form-control" id="description" name="description" placeholder="Enter description">
+                                        <input class="form-control select2" id="description" name="description" placeholder="Enter description">
 
                                     </div>
 
                                     <div class="form-group">
-                                        <a class="btn btn-info text-white addEventMore btn-sm" style="margin-top: 30px !important;">
+                                        <a class="btn btn-info text-white addEventMore" style="margin-top: 30px !important;">
                                             <i class="fas fa-plus-circle">&nbsp;</i> Add More</a>
 
                                     </div>
@@ -134,7 +134,7 @@
 
                                         <tbody id="addRow" class="addRow">
 
-                                        </tbody>
+                                       </tbody>
 
 
                                         <tbody>
@@ -152,7 +152,7 @@
                                     </table>
                                     <br>
                                     <div class="form-group">
-                                        <button type="submit" id="storeButton"  class="btn btn-info btn-sm text-white">Purchase Store</button>
+                                        <button type="submit" id="storeButton"  class="btn btn-info text-white">Purchase Store</button>
 
                                     </div>
                                 </form>

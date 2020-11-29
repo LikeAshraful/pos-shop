@@ -65,10 +65,16 @@
                                                         <i class="fa fa-edit" aria-hidden="true"></i>
                                                     </a>
 
-                                                    <a href="#deleteModal{{ $list->id }}" data-toggle="modal"
-                                                       class="badge badge-danger">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
+                                                    @php
+                                                        $count_product = App\Models\Purchase::where('product_id',$list->id)->count();
+                                                    @endphp
+                                                    {{--@dd($count_supplier);--}}
+                                                    @if($count_product < 1)
+                                                        <a href="#deleteModal{{ $list->id }}" data-toggle="modal"
+                                                           class="badge badge-danger">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </a>
+                                                @endif
                                                     <!-- Delete Modal -->
                                                     <div class="modal fade" id="deleteModal{{ $list->id }}"
                                                          tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
