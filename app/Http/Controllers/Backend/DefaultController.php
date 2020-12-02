@@ -38,7 +38,6 @@ class DefaultController extends Controller
         $r_brand_id = $request->brand_id;
         $allCategory = Product::with('category')->select('category_id')->where('brand_id',$r_brand_id)->groupBy('category_id')->get();
         //dd($allCategory);
-
         return response()->json($allCategory);
     }
 
@@ -55,6 +54,14 @@ class DefaultController extends Controller
         //dd($allProducts);
         return response()->json($allProducts);
 
+
+    }
+
+    public function getStock(Request $request){
+        $r_product_id = $request->product_id;
+        $stock = Product::where('id',$r_product_id)->first()->quantity;
+        //dd($stock);
+        return response()->json($stock);
 
     }
 

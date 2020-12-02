@@ -140,6 +140,8 @@ Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-
 Route::get('/category-for-invoice', 'Backend\DefaultController@categoryForInvoice')->name('category-for-invoice');
 Route::get('/get-sub-category', 'Backend\DefaultController@getSubCategory')->name('get-sub-category');
 Route::get('/get-products', 'Backend\DefaultController@getProducts')->name('get-products');
+Route::get('/check-product-stock', 'Backend\DefaultController@getStock')->name('check-product-stock');
+
 
 
 

@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @push('styles')
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="">
 @endpush
 
 @section('content')
@@ -91,8 +91,8 @@
                                     </div>
 
                                     <div class="form-group col-md-3">
-                                        <label for="cuntry">Description</label>
-                                        <input class="form-control" id="description" name="description" placeholder="Enter description">
+                                        <label for="cuntry">Stock</label>
+                                        <input class="form-control form-control-sm" id="curent_stock_qty" name="curent_stock_qty" style="background-color: #d4edda" readonly>
 
                                     </div>
 
@@ -633,10 +633,23 @@
                     }
                 });
             });
+            //Loading product stock under product_id selection
+            $(document).on('change', '#product_id', function () {
+                var my_product_id = $(this).val();
+                $.ajax({
+                    url: "{{ route('check-product-stock') }}",
+                    type: "GET",
+                    data: { product_id: my_product_id },
+                    success: function (data) {
+                        $('#curent_stock_qty').val(data);
+
+                    }
+                });
+            });
 
         });
 
     </script>
-    
+
 
 @endpush

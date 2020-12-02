@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/summernote/summernote-bs4.css">
 
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <!--gijgo -->
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="{{ URL::asset('backend')}}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">

@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @push('styles')
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
+    <link href="#" rel="stylesheet" type="text/css"/>
 @endpush
 
 @section('content')
