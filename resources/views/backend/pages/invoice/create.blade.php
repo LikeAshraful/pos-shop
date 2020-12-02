@@ -567,6 +567,14 @@
 
 
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#date').datepicker({
+                uiLibrary: 'bootstrap4'
+            });
+
+        });
+
         $(function () {
             //Loading category under brand_id selection
             $(document).on('change', '#brand_id', function () {
@@ -627,19 +635,18 @@
                 });
             });
 
-
         });
 
     </script>
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('#date').datepicker({
-                uiLibrary: 'bootstrap4'
-            });
-
-        });
+        // $(document).ready(function () {
+        //     $('#date').datepicker({
+        //         uiLibrary: 'bootstrap4'
+        //     });
+        //
+        // });
     </script>
 
 
