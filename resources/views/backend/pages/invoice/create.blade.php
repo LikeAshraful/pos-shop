@@ -572,7 +572,6 @@
             $('#date').datepicker({
                 uiLibrary: 'bootstrap4'
             });
-
         });
 
         $(function () {
@@ -638,16 +637,6 @@
         });
 
     </script>
-
-    <script type="text/javascript">
-
-        // $(document).ready(function () {
-        //     $('#date').datepicker({
-        //         uiLibrary: 'bootstrap4'
-        //     });
-        //
-        // });
-    </script>
-
+    
 
 @endpush
