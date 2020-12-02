@@ -120,9 +120,24 @@ Route::group(['prefix' => 'purchase'], function () {
     Route::post('/delete/{id}', 'Backend\PurchaseController@postDelete')->name('admin.purchase.delete');
 
 });
+
+Route::group(['prefix' => 'invoice'], function () {
+    Route::get('/index', 'Backend\InvoiceController@getIndex')->name('invoice.view');
+    Route::get('/create', 'Backend\InvoiceController@getCreate')->name('invoice.create');
+    Route::post('/store', 'Backend\InvoiceController@postStore')->name('invoice.store');
+    Route::get('/pending', 'Backend\InvoiceController@pendingList')->name('invoice.pending.list');
+    Route::post('/approve/{id}', 'Backend\InvoiceController@purchaseApprove')->name('invoice.approve');
+    Route::post('/delete/{id}', 'Backend\InvoiceController@postDelete')->name('invoice.delete');
+
+});
+
+
+
+
 //DefaultController for Ajax
 Route::get('/get-supplier', 'Backend\DefaultController@getSupplier')->name('get-supplier');
 Route::get('/get-category', 'Backend\DefaultController@getCategory')->name('get-category');
+Route::get('/category-for-invoice', 'Backend\DefaultController@categoryForInvoice')->name('category-for-invoice');
 Route::get('/get-sub-category', 'Backend\DefaultController@getSubCategory')->name('get-sub-category');
 Route::get('/get-products', 'Backend\DefaultController@getProducts')->name('get-products');
 

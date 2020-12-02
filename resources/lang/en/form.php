@@ -13,7 +13,7 @@ return [
     |
     */
     /*TH label*/
-    'th_id' => 'ID',
+    'th_sl' => 'SL.',
     'th_title' => 'Title',
     'th_user' => 'User',
     'th_supplier' => 'Supplier',

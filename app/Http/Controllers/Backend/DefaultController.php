@@ -33,6 +33,15 @@ class DefaultController extends Controller
         return response()->json($allCategory);
     }
 
+    public function categoryForInvoice(Request $request)
+    {
+        $r_brand_id = $request->brand_id;
+        $allCategory = Product::with('category')->select('category_id')->where('brand_id',$r_brand_id)->groupBy('category_id')->get();
+        //dd($allCategory);
+
+        return response()->json($allCategory);
+    }
+
     public function getSubCategory(Request $request){
         $r_category_id = $request->category_id;
         $allSubCategory = Product::with(['product_sub_category'])->select('sub_category_id')->where('category_id',$r_category_id)->groupBy('sub_category_id')->get();

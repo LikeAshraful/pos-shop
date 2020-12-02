@@ -224,6 +224,37 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item has-treeview {{($prefix=='/invoice')?'menu-open':''}}">
+                        <a class="nav-link">
+                            <i class="nav-icon fas fa-toolbox"></i>
+                            <p>
+                                Manage Invoice <i class="right fas fa-angle-left"></i>
+                            </p>
+
+
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('invoice.view')}}"
+                                   class="nav-link {{($route=='w')?'active':''}}">
+                                    <i class="far fa-list-alt"></i>
+                                    <p>View Invoice</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{route('invoice.pending.list')}}"
+                                   class="nav-link {{($route=='w')?'active':''}}">
+                                    <i class="far fa-list-alt"></i>
+                                    <p>Approve Invoice</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                 @endif
 
                 <li class="nav-item has-treeview {{($prefix=='/profile')?'menu-open':''}}">
