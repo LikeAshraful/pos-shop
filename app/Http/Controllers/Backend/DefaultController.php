@@ -53,8 +53,6 @@ class DefaultController extends Controller
         $allProducts = Product::where('sub_category_id',$r_sub_category_id)->get();
         //dd($allProducts);
         return response()->json($allProducts);
-
-
     }
 
     public function getStock(Request $request){
@@ -62,10 +60,7 @@ class DefaultController extends Controller
         $stock = Product::where('id',$r_product_id)->first()->quantity;
         //dd($stock);
         return response()->json($stock);
-
     }
-
-
 
 
 //    public function getSubCategory(Request $request){
