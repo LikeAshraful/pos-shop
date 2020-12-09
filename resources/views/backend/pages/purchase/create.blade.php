@@ -141,10 +141,9 @@
                                         <tr>
                                             <td colspan="7" class="text-bold text-dark">Line Total</td>
 
-                                            <td  colspan="1" class="text-white text-bold text-center">
+                                            <td  colspan="2" class="text-white text-bold text-center">
                                                 <input id="estimated_amount" type="text" class="form-control text-right estimated_amount" readonly>
                                             </td>
-                                            <td>&nbsp;</td>
 
 
                                         </tr>

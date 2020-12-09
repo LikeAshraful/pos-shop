@@ -33,7 +33,7 @@
 
                                         <div class="input-group">
                                             <input class="form-control form-control-sm" name="invoice_no" id="invoice_no"
-                                                   placeholder="Enter invoice no" readonly style="background-color: #d4edda"/>
+                                                   value= {{ $invoice_no }} readonly style="background-color: #d4edda"/>
 
                                         </div>
                                         <!-- /.input group -->
@@ -104,7 +104,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                 <hr style="background-color: #123455;">
-                                <h3 class="card-title mb-2 text-bold">Purchase List</h3>
+                                <h3 class="card-title mb-2 text-bold">Invoice List</h3>
                                 <form action="{{ route('admin.purchase.store') }}" method="post">
                                     @csrf
                                     <table id="example1" class="table table-bordered table-striped">
@@ -112,11 +112,10 @@
                                         <tr>
                                             <th>@lang('form.th_product_category')</th>
                                             <th>@lang('form.th_product_sub_category')</th>
-                                            <th>@lang('form.th_title')</th>
+                                            <th>Product name</th>
                                             <th width="10%">Quantity</th>
-                                            <th width="10%">Price</th>
+                                            <th width="10%">Rate</th>
                                             <th>Unit</th>
-                                            <th>Description</th>
                                             <th width="15%">Total</th>
                                             <th width="3%" class="text-right">Action</th>
 
@@ -127,23 +126,36 @@
 
                                         </tbody>
 
-
                                         <tbody>
+
                                         <tr>
-                                            <td colspan="7" class="text-bold text-dark">Line Total</td>
+                                            <td colspan="6" class="text-bold text-dark">Discount Amount</td>
 
-                                            <td  colspan="1" class="text-white text-bold text-center">
-                                                <input id="estimated_amount" type="text" class="form-control text-right estimated_amount" readonly>
+                                            <td  colspan="2" class="text-white text-bold">
+                                                <input name="discount_amount" id="discount_amount" type="text" class="form-control form-control-sm text-center" style="background-color: #d4edda">
                                             </td>
-                                            <td>&nbsp;</td>
 
+                                        </tr>
+
+
+                                        <tr>
+                                            <td colspan="6" class="text-bold text-dark">Line Total</td>
+
+                                            <td  colspan="2" class="text-white text-bold ">
+                                                <input id="estimated_amount" type="text" class="form-control form-control-sm estimated_amount text-lg-center" style="background-color: #d4edda" readonly>
+                                            </td>
 
                                         </tr>
                                         </tbody>
                                     </table>
+
+                                        <div class="form-group">
+                                        <textarea class="form-control" name="description" id="" cols="155" rows="3"></textarea>
+                                        </div>
+
                                     <br>
                                     <div class="form-group">
-                                        <button type="submit" id="storeButton"  class="btn btn-info btn-sm text-white">Purchase Store</button>
+                                        <button type="submit" id="storeButton"  class="btn btn-info btn-sm text-white">Invoice Store</button>
 
                                     </div>
                                 </form>
@@ -395,18 +407,15 @@
 @push('scripts')
     <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
-    <script id="document-template" type="text/x-handlebars-template">
+      <script id="document-template" type="text/x-handlebars-template">
 
         <tr class="delete_add_more_item" id="delete_add_more_item">
 
-            <input type="hidden" name="date[]" value="@{{ date }}">
+            <input type="hidden" name="date" value="@{{ date }}">
 
-            <input type="hidden" name="purchase_no[]" value="@{{ purchase_no }}">
+            <input type="hidden" name="invoice_no" value="@{{ invoice_no }}">
 
             <input type="hidden" name="brand_id[]" value="@{{ brand_id }}">
-
-            <input type="hidden" name="supplier_id[]" value="@{{ supplier_id }}">
-
 
             <td>
                 <input type="hidden" name="category_id[]" value="@{{ category_id }}">@{{ category_name }}
@@ -420,7 +429,7 @@
                 <input type="hidden" name="product_id[]" value="@{{ product_id }}">@{{ product_name }}
             </td>
             <td>
-                <input type="number" min="1" class="form-control form-control-sm buying_qty" name="buying_qty[]" value="1">
+                <input type="number" min="1" class="form-control form-control-sm selling_qty" name="selling_qty[]" value="1">
             </td>
             <td>
                 <input type="number" class="form-control form-control-sm unit_price" name="unit_price[]" value="">
@@ -428,12 +437,9 @@
             <td>
                 <input type="hidden" class="form-control form-control-sm unit_id" name="unit_id[]" value="@{{ unit_id }}">@{{ unit_name }}
             </td>
-            <td>
-                <textarea type="text" class="form-control form-control-sm description" name="description[]">@{{ description }}</textarea>
 
-            </td>
             <td>
-                <input type="number" class="form-control form-control-sm text-right buying_price" value="1" name="buying_price[]" readonly>
+                <input type="number" class="form-control form-control-sm text-right selling_price" value="1" name="selling_price[]" readonly>
             </td>
             <td>
                 <i class="btn btn-danger btn-sm fa fa-window-close removeEventMore"></i>
@@ -450,11 +456,9 @@
         $(document).on('click', ".addEventMore", function () {
 
             var date = $('#date').val();
-            var purchase_no = $('#purchase_no').val();
-            var brand_id            = $('#brand_id').val();
-            var brand_name          = $('#brand_id').find('option:selected').text();
-            var supplier_id         = $('#supplier_id').val();
-            var supplier_name       = $('#supplier_id').find('option:selected').text();
+            var invoice_no = $('#invoice_no').val();
+            var brand_id                = $('#brand_id').val();
+            var brand_name              = $('#brand_id').find('option:selected').text();
             var category_id           = $('#category_id').val();
             var category_name         = $('#category_id').find('option:selected').text();
             var sub_category_id       = $('#sub_category_id').val();
@@ -463,27 +467,20 @@
             var product_name          = $('#product_id').find('option:selected').text();
             var unit_id               = $('#unit_id').val();
             var unit_name             = $('#unit_id').find('option:selected').text();
-            var buying_qty            = $('#buying_qty').val();
+            var selling_qty            = $('#selling_qty').val();
             var unit_price            = $('#unit_price').val();
-            var description           = $('#description').val();
-            var buying_price          = $('#buying_price').val();
+            var selling_price          = $('#selling_price').val();
 
             if (date == '') {
                 $.notify("Date is rquired", {globalPosition: 'top-right', className: 'error'});
                 return false;
             }
-            if (purchase_no == '') {
-                $.notify("Purchase is rquired", {globalPosition: 'top-right', className: 'error'});
-                return false;
-            }
+
             if (brand_id == '') {
                 $.notify("Brand is rquired", {globalPosition: 'top-right', className: 'error'});
                 return false;
             }
-            if (supplier_id == '') {
-                $.notify("Supplier is rquired", {globalPosition: 'top-right', className: 'error'});
-                return false;
-            }
+
             if (category_id == '') {
                 $.notify("Category is rquired", {globalPosition: 'top-right', className: 'error'});
                 return false;
@@ -501,7 +498,7 @@
                 return false;
             }
 
-            if (buying_qty == '') {
+            if (selling_qty == '') {
                 $.notify("Buying Quantity is rquired", {globalPosition: 'top-right', className: 'error'});
                 return false;
             }
@@ -510,7 +507,7 @@
                 return false;
             }
 
-            if (buying_price == '') {
+            if (selling_price == '') {
                 $.notify("Puying price is rquired", {globalPosition: 'top-right', className: 'error'});
                 return false;
             }
@@ -519,21 +516,20 @@
             var template = Handlebars.compile(source);
             var data = {
                 date: date,
-                purchase_no: purchase_no,
+                invoice_no: invoice_no,
                 brand_id:        brand_id,
-                supplier_id:      supplier_id,
                 category_id: category_id,
                 category_name: category_name,
                 sub_category_id: sub_category_id,
                 sub_category_name: sub_category_name,
                 product_id: product_id,
                 product_name: product_name,
-                buying_qty: buying_qty,
+                selling_qty: selling_qty,
                 unit_price: unit_price,
                 unit_id: unit_id,
                 unit_name: unit_name,
-                buying_price: buying_price,
-                description: description
+                selling_price: selling_price
+
             };
             var html = template(data);
             $("#addRow").append(html);
@@ -543,23 +539,37 @@
             totalAmountPrice();
         });
 
-        $(document).on('keyup click', '.unit_price,.buying_qty', function (event) {
+        $(document).on('keyup click', '.unit_price,.selling_qty', function (event) {
             var unit_price  = $(this).closest("tr").find("input.unit_price").val();
-            var qty         = $(this).closest("tr").find("input.buying_qty").val();
+            var qty         = $(this).closest("tr").find("input.selling_qty").val();
             var total = unit_price * qty;
-            $(this).closest("tr").find("input.buying_price").val(total);
-            totalAmountPrice();
+            $(this).closest("tr").find("input.selling_price").val(total);
+            //totalAmountPrice();
+            $('#discount_amount').trigger('keyup');
 
         });
-        //totalAmountPrice
+
+        //discount_amount
+        $(document).on('keyup','#discount_amount', function (){
+            totalAmountPrice();
+        })
+        //totalAmountPrice calculation
         function totalAmountPrice(){
             var sum=0;
-            $(".buying_price").each(function (){
+            $(".selling_price").each(function (){
                 var value = $(this).val();
                 if(!isNaN(value) && value.length != 0){
                     sum += parseFloat(value);
                 }
             })
+
+            //discount_amount calculation that will be minus form total amount (if any)
+            var discount_amount = parseFloat($('#discount_amount').val());
+                if(!isNaN(discount_amount) && discount_amount.length != 0){
+                    sum -= parseFloat(discount_amount);
+
+            }
+            //estimated_amount after applying discount
             $('#estimated_amount').val(sum);
         }
 
@@ -581,7 +591,6 @@
                 $('#sub_category_id').append(`<option value="">Select subcategory</option>`)
                 $('#category_id').empty()
                 $('#category_id').append(`<option value="">Select category</option>`)
-
                 var my_brand_id = $(this).val();
                 $.ajax({
                     url: "{{ route('category-for-invoice') }}",
@@ -589,7 +598,6 @@
                     data: {brand_id: my_brand_id},
                     success: function (data) {
                         var html = '<option value="">Select category</option>';
-
                         $.each(data, function (key, v) {
                             html += '<option value="' + v.category_id + '">' + v.category.name + '</option>'
                         });

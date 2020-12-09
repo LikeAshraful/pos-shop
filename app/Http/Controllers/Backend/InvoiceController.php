@@ -46,6 +46,17 @@ class InvoiceController extends Controller
         $data['sub_categories'] = SubCategory::all();
         $data['units'] = Unit::all();
         $data['products'] = Product::all();
+
+        $invoice_data = Invoice::orderBy('id', 'desc')->first();
+        if($invoice_data == null){
+                $firstReg = '0';
+                $data['invoice_no'] = $firstReg +1;
+                //dd($invoice_no);
+        } else{
+            $invoice_data = Invoice::orderBy('id', 'desc')->first()->invoice_no;
+            $data['invoice_no'] = $invoice_data +1;
+        }
+
         //dd($data['categories']);
         return view('backend.pages.invoice.create', $data);;
     }
