@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 
+use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\SubCategory;
 use App\Models\Supplier;
@@ -33,6 +34,25 @@ class InvoiceController extends Controller
         return view('backend.pages.invoice.index', $data);
     }
 
+
+
+    //Fake
+    public function invoice_design()
+    {
+        $data['title'] = "Invoice";
+        return view('backend.pages.invoice.invoice_pdf');
+    }
+
+    public function invoice_print()
+    {
+        $data['title'] = "invoice_print";
+        return view('backend.pages.invoice.invoice_print');
+    }
+
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,6 +66,10 @@ class InvoiceController extends Controller
         $data['sub_categories'] = SubCategory::all();
         $data['units'] = Unit::all();
         $data['products'] = Product::all();
+        $data['customers'] = Customer::all();
+        $data['date'] = date("Y-m-d");
+
+
 
         $invoice_data = Invoice::orderBy('id', 'desc')->first();
         if($invoice_data == null){
@@ -57,7 +81,6 @@ class InvoiceController extends Controller
             $data['invoice_no'] = $invoice_data +1;
         }
 
-        //dd($data['categories']);
         return view('backend.pages.invoice.create', $data);;
     }
 
@@ -70,38 +93,51 @@ class InvoiceController extends Controller
 
     public function postStore(Request $request)
     {
-        //dd('Okay');
-        if ($request->category_id == null) {
-
-            toast('Sorry do not dot select any items !!', 'error');
+        if ($request->category_id == null){
+            toast('Sorry you do not added any product !!', 'error');
             return redirect()->back();
+        }else{
+            //dd("Okay");
+            if ($request->paid_amount > $request->estimated_amount){
+                toast('Sorry paid amount will not bigger than line total !!', 'error');
+                return redirect()->back();
+            } else{
 
-        } else {
-            $count_category = count($request->category_id);
-            // dd($count_brand);
-            for ($i = 0; $i < $count_category; $i++) {
-                $pucrhase = new  Purchase();
-                $pucrhase->date = date('Y-m-d', strtotime($request->date[$i]));
-                $pucrhase->purchase_no = $request->purchase_no[$i];
-                $pucrhase->brand_id = $request->brand_id[$i];
-                $pucrhase->supplier_id = $request->supplier_id[$i];
-                $pucrhase->category_id = $request->category_id[$i];
-                $pucrhase->sub_category_id = $request->sub_category_id[$i];
-                $pucrhase->product_id = $request->product_id[$i];
-                $pucrhase->unit_id = $request->unit_id[$i];
-                $pucrhase->buying_price = $request->buying_price[$i];
-                $pucrhase->buying_qty = $request->buying_qty[$i];
-                $pucrhase->description = $request->description[$i];
-                $pucrhase->created_by = Auth::user()->id;
-                $pucrhase->status = '0';
-                //dd($pucrhase);
-                $pucrhase->save();
+                $invoice                    = new Invoice();
+                $invoice->date              = $request->date;
+                $invoice->invoice_no        = $request->invoice_no;
+                //$invoice->brand_id          = $request->brand_id;
+                //$invoice->category_id       = $request->category_id;
+                //$invoice->sub_category_id   = $request->sub_category_id;
+                //$invoice->product_id        = $request->product_id;
+                $invoice->unit_id           = $request->unit_id;
+                $invoice->description       = $request->description;
+                $invoice->status            = '0';
+                $invoice->created_by        = Auth::user()->id;
+                // Transaction start
+                DB::transaction(function() use($request, $invoice)  {
+                    if ($invoice->save()){
+                        $count_category = count($request->category_id);
+                        for ($i=0; $i <$count_category; $i++){
+                            $invoice_details                    = new InvoiceDetail();
+                            $invoice_details->invoice_id        = $invoice->id;
+                            $invoice_details->brand_id          = $request->brand_id;
+                            $invoice_details->category_id       = $request->category_id[$i];
+                            $invoice_details->sub_category_id   = $request->sub_category_id[$i];
+                            $invoice_details->product_id        = $request->product_id[$i];
+                            $invoice_details->selling_qty       = $request->selling_qty[$i];
+                            $invoice_details->unit_price        = $request->unit_price;
+                            $invoice_details->selling_price     = $request->selling_price;
+                            $invoice_details->status            = '1';
+                            $invoice_details->save();
+                        }
+                    }
+                });
+                // Transaction end
+
 
             }
-
         }
-        toast('Data added successfully !!', 'success');
-        return redirect()->route('admin.purchase.view');
 
     }
 

@@ -24,7 +24,7 @@
 
                                         <div class="input-group">
                                             <input class="form-control form-control-sm" name="date" id="date"
-                                                   placeholder="MM-DD-YY"/>
+                                                   value="{{ $date }}"/>
                                         </div>
                                         <!-- /.input group -->
                                     </div>
@@ -105,7 +105,7 @@
                                 <!-- /.card-body -->
                                 <hr style="background-color: #123455;">
                                 <h3 class="card-title mb-2 text-bold">Invoice List</h3>
-                                <form action="{{ route('admin.purchase.store') }}" method="post">
+                                <form action="{{ route('invoice.store') }}" method="post">
                                     @csrf
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
@@ -129,33 +129,74 @@
                                         <tbody>
 
                                         <tr>
-                                            <td colspan="6" class="text-bold text-dark">Discount Amount</td>
+                                            <td colspan="6" class="text-right text-bold text-dark">Discount Amount</td>
 
-                                            <td  colspan="2" class="text-white text-bold">
-                                                <input name="discount_amount" id="discount_amount" type="text" class="form-control form-control-sm text-center" style="background-color: #d4edda">
+                                            <td  colspan="1" class="text-white text-bold">
+                                                <input name="discount_amount" id="discount_amount" type="text" class="text-right form-control form-control-sm" style="background-color: #d4edda" value="{{ old('discount_amount') }}">
                                             </td>
+                                            <td></td>
 
                                         </tr>
 
 
                                         <tr>
-                                            <td colspan="6" class="text-bold text-dark">Line Total</td>
-
-                                            <td  colspan="2" class="text-white text-bold ">
-                                                <input id="estimated_amount" type="text" class="form-control form-control-sm estimated_amount text-lg-center" style="background-color: #d4edda" readonly>
+                                            <td colspan="6" class="text-right text-bold text-dark">Line Total</td>
+                                            <td  colspan="1" class="text-white text-bold ">
+                                                <input name="estimated_amount" id="estimated_amount" type="text" class="text-right form-control form-control-sm estimated_amount" style="background-color: #d4edda" readonly value="{{old('estimated_amount')}}">
                                             </td>
+                                            <td></td>
 
                                         </tr>
                                         </tbody>
                                     </table>
 
                                         <div class="form-group">
-                                        <textarea class="form-control" name="description" id="" cols="155" rows="3"></textarea>
+                                            <textarea class="form-control" name="description" id="" cols="155" rows="3"></textarea>
                                         </div>
+
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="paid_status">Payment status</label>
+                                            <select name="paid_status" id="paid_status" class="form-control form-control-sm">
+                                                <option value="full_paid">Full paid</option>
+                                                <option value="full_due">Full due</option>
+                                                <option value="partial_paid">Partial payment</option>
+                                            </select>
+                                            <input type="text" class="form-control form-control-sm paid_amount mt-2" id="paid_amount" name="paid_amount" placeholder="Enter paid amount" style="display: none" value="{{old('paid_amount')}}">
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <label for="customer_id">Customer name</label>
+                                            <select name="customer_id" id="customer_id" class="form-control form-control-sm select2">
+                                                <option value="">Selecr customer name </option>
+                                                @foreach($customers as $customer_row)
+                                                    <option value="{{ $customer_row->id }}">
+                                                        {{ $customer_row->name }} || {{ $customer_row->mobile_no }} || {{ $customer_row->address }}</option>
+                                                @endforeach
+                                                <option value="0">New customer </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row new_customer" style="display:none">
+                                        <div class="form-group col-md-4">
+                                                <label>Customer name</label>
+                                                <input type="text" id="name" name="name" class="form-control form-control-sm" placeholder="Enter customer name">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Mobile</label>
+                                            <input type="text" id="mobile_no" name="mobile_no" class="form-control form-control-sm" placeholder="Enter customer mobile">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Address</label>
+                                            <input type="text" id="address" name="address" class="form-control form-control-sm" placeholder="Enter customer address">
+                                        </div>
+                                    </div>
 
                                     <br>
                                     <div class="form-group">
                                         <button type="submit" id="storeButton"  class="btn btn-info btn-sm text-white">Invoice Store</button>
+                                        <a href="{{ route('invoice_design')}} " class="btn btn-success btn-sm text-white">Invoice Design Sample</a>
+
 
                                     </div>
                                 </form>
@@ -439,7 +480,7 @@
             </td>
 
             <td>
-                <input type="number" class="form-control form-control-sm text-right selling_price" value="1" name="selling_price[]" readonly>
+                <input type="text" class="form-control form-control-sm text-right selling_price" value="1" name="selling_price[]" readonly value="{{ old('selling_price') }}">
             </td>
             <td>
                 <i class="btn btn-danger btn-sm fa fa-window-close removeEventMore"></i>
@@ -659,5 +700,27 @@
 
     </script>
 
+    <script type="text/javascript">
+        $(document).on('change','#paid_status', function(){
+            //alert('okay');
+            // Paid status
+            var paid_status = $(this).val();
+            if( paid_status == 'partial_paid'){
+                $('.paid_amount').show()
+            } else{
+                $('.paid_amount').hide()
+            }
+        })
+        $(document).on('change','#customer_id', function(){
+            // New customer
+            var customer_id = $(this).val();
+            if( customer_id == '0'){
+                $('.new_customer').show()
+            } else{
+                $('.new_customer').hide()
+            }
+        })
 
+
+    </script>
 @endpush

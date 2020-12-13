@@ -129,6 +129,12 @@ Route::group(['prefix' => 'invoice'], function () {
     Route::post('/approve/{id}', 'Backend\InvoiceController@purchaseApprove')->name('invoice.approve');
     Route::post('/delete/{id}', 'Backend\InvoiceController@postDelete')->name('invoice.delete');
 
+    #Deletable
+    Route::get('/invoice_design', 'Backend\InvoiceController@invoice_design')->name('invoice_design');
+    Route::get('/invoice_print', 'Backend\InvoiceController@invoice_print')->name('invoice_print');
+
+
+
 });
 
 

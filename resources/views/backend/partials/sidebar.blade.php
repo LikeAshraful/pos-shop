@@ -192,15 +192,12 @@
 
                         </ul>
                     </li>
-
                     <li class="nav-item has-treeview {{($prefix=='/purchase')?'menu-open':''}}">
-                        <a class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-toolbox"></i>
                             <p>
                                 Manage Purchase <i class="right fas fa-angle-left"></i>
                             </p>
-
-
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -212,48 +209,27 @@
                             </li>
 
                         </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('purchase.pending.list')}}"
-                                   class="nav-link {{($route=='purchase.pending.list')?'active':''}}">
-                                    <i class="far fa-list-alt"></i>
-                                    <p>Approve Purchase</p>
-                                </a>
-                            </li>
-
-                        </ul>
                     </li>
 
                     <li class="nav-item has-treeview {{($prefix=='/invoice')?'menu-open':''}}">
-                        <a class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-toolbox"></i>
                             <p>
                                 Manage Invoice <i class="right fas fa-angle-left"></i>
                             </p>
-
-
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
                                 <a href="{{route('invoice.view')}}"
-                                   class="nav-link {{($route=='w')?'active':''}}">
+                                   class="nav-link {{($route=='invoice.view')?'active':''}}">
                                     <i class="far fa-list-alt"></i>
-                                    <p>View Invoice</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('invoice.pending.list')}}"
-                                   class="nav-link {{($route=='w')?'active':''}}">
-                                    <i class="far fa-list-alt"></i>
-                                    <p>Approve Invoice</p>
+                                    <p>Invoice</p>
                                 </a>
                             </li>
 
                         </ul>
                     </li>
+
 
                 @endif
 

@@ -32,82 +32,31 @@
                                         <th>@lang('form.th_price')</th>
                                         <th>@lang('form.th_quantity')</th>
                                         <th>@lang('form.th_status')</th>
-                                        <th class="text-right" width="3%">@lang('form.th_action')</th>
+                                        <th>@lang('form.th_action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @if(count($invoices))
-                                        @foreach ($invoices as $key => $purchase)
+
                                             <tr>
-                                                <td>{{ ++$key }}</td>
-                                                <td>{{ $purchase->purchase_no }}</td>
-                                                <td>{{ $purchase->date }}</td>
-                                                <td>{{ $purchase['products']['brands']['name'] }}</td>
-                                                <td>{{ $purchase['products']['suppliers']->name }}</td>
-                                                <td>{{ $purchase['products']['brands']->name }}</td>
-                                                <td>{{ $purchase['products']['category']->name }}</td>
-                                                <td>{{ $purchase->buying_price }}</td>
-                                                <td>{{ $purchase->buying_qty }} <span class="badge badge-info">{{ $purchase['products']['units']['name'] }}</span></td>
+                                                <td>1</td>
+                                                <td>01</td>
+                                                <td>10-12-2020</td>
+                                                <td>Walton Home Freeze</td>
+                                                <td>Sons and Sons</td>
+                                                <td>Walton</td>
+                                                <td>Freeze</td>
+                                                <td>1000</td>
+                                                <td>100</td>
                                                 <td>
-                                                    @if($purchase->status == 0)
-                                                        <span class="badge badge-warning">Pending</span>
-                                                    @elseif($purchase->status == 1)
-                                                        <span class="badge badge-success">Apprvd.</span>
-                                                    @endif
+                                                    Active
                                                 </td>
                                                 <td>
-                                                    @if($purchase->status == 0)
-                                                        <a href="#deleteModal{{ $purchase->id }}" data-toggle="modal" class="badge badge-danger text-right">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </a>
-                                                        <!-- Delete Modal -->
-                                                        <div class="modal fade" id="deleteModal{{ $purchase->id }}"
-                                                             tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                             aria-hidden="true">
-                                                            <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Are
-                                                                            sure to delete?</h5>
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-label="Close">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <form
-                                                                            action="{!! route('admin.purchase.delete', $purchase->id) !!}"
-                                                                            method="post">
-                                                                            {{ csrf_field() }}
-                                                                            <button type="submit" class="btn btn-danger">
-                                                                                Permanent Delete
-                                                                            </button>
-                                                                        </form>
-
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                                data-dismiss="modal">Cancel
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Delete Modal -->
-                                                    @elseif($purchase->status == 1)
-                                                        <span class="badge badge-success"><i class="fas fa-check" aria-hidden="true"></i></span>
-                                                    @endif
-
-
+                                                    <i class="fas fa-trash"></i>
+                                                    <a href=""><i class="fas fa-eye"></i></a>
                                                 </td>
                                             </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="5"> Opps!!, {{$title}} Not found</td>
-                                        </tr>
-                                    @endif
+
                                     </tbody>
 
                                 </table>
